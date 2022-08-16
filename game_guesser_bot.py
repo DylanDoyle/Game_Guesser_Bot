@@ -8,12 +8,12 @@
 # The bot should post on Saturday night the high scorers of the week
 
 # ---WIP---
-# The bot should operate on a raspberry pi - implement when SD card reader arrives
+# The bot should operate on a raspberry pi
 # The bot should backup the game data once a week
 
-# The bot should respond to requests for score info from users - bot.command
-# Generate fun message for high score or hot streaks - track hot streak as a variable in game data
-# Track medals, assign prestige - track ranking at end of week
+# The bot should respond to requests for score info from users
+# Generate fun message for high score or hot streaks
+# Track medals, assign prestige
 
 # User scores have the 1. username, 2. lifetime points, 3. weekly points, 4. score flag
 # Maybe add hot streak flag or medal tracking later
