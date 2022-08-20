@@ -149,15 +149,15 @@ async def on_message(message):
 
     if guessthegame in msg:
         # First check if the player is able to gain points
-        if check_can_gain_points(message):
-            score = 6
-            for word in msg:
-                if word == red_square:
-                    score -= 1
+        score = 6
+        for word in msg:
+            if word == red_square:
+                score -= 1
 
-            contents = get_user_score_contents()
+        contents = get_user_score_contents()
 
-            if check_for_user_id(message_user_name, contents): # Existing user
+        if check_for_user_id(message_user_name, contents): # Existing user
+            if check_can_gain_points(message):
                 total_points, weekly_points = update_score(message_user_name, score, contents, file_name)
                 existing_user = (
                     user_nickname + " earned " + str(score) + 
@@ -165,15 +165,15 @@ async def on_message(message):
                     "Their score this week is " + str(weekly_points) + "!"
                 )
                 await message.channel.send(existing_user)
-            else: # User not found
-                add_new_user(message_user_name, score, file_name)
-                new_user = ("This is " + user_nickname + 
-                "'s first time playing!\n" + "Their starting score is " +
-                str(score) + " points"
-                )
-                await message.channel.send(new_user)
-        else:
-            await message.channel.send(cant_gain_points)
+            else:
+                await message.channel.send(cant_gain_points)
+        else: # User not found
+            add_new_user(message_user_name, score, file_name)
+            new_user = ("This is " + user_nickname + 
+            "'s first time playing!\n" + "Their starting score is " +
+            str(score) + " points"
+            )
+            await message.channel.send(new_user)
 
 @aiocron.crontab('0 23 * * 6')
 async def weekly_winner():
