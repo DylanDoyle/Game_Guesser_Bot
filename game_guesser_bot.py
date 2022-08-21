@@ -34,6 +34,7 @@ GUILD = os.getenv('DISCORD_GUILD')
 
 intents = discord.Intents.default()
 intents.members = True
+# intents.message_content = True This line is needed on the rasperry Pi for some reason. Maybe on all setups after 8/31/22 when they change permisions
 bot = commands.Bot(command_prefix='!', intents=intents) # This is needed for the bot to access the list of users on the server
 
 target_channel_id = 1006957133616660491
