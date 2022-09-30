@@ -147,8 +147,11 @@ async def on_message(message):
     user_nickname = message.author.display_name
     guessthegame = '#guessthegame' # or could be a sentence or phrase (ie 'these words')
     red_square = '🟥'
+    scoreboard_command = "!weekly_scoreboard"
 
-    if guessthegame in msg:
+    if scoreboard_command in msg:
+        weekly_scoreboard()
+    elif guessthegame in msg:
         # First check if the player is able to gain points
         score = 6
         for word in msg:
@@ -175,6 +178,17 @@ async def on_message(message):
             str(score) + " points"
             )
             await message.channel.send(new_user)
+
+async def weekly_scoreboard():
+    """Function to share the current weekly scores for all users"""
+    contents = get_user_score_contents()
+    
+    # Use this week's scores to generate a message
+    weekly_scoreboard_message = ("Here are this week's current standings:" + "\n\n")
+    for (player_id, weekly_score) in zip(contents, contents[2:]):
+        weekly_scoreboard_message += "\t\t" + player_id + " - " + weekly_score + "\n"
+    channel = bot.get_channel(target_channel_id)
+    await channel.send(weekly_scoreboard_message)
 
 @aiocron.crontab('0 23 * * 6')
 async def weekly_winner():
