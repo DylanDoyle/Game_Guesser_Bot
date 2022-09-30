@@ -186,7 +186,8 @@ async def weekly_scoreboard():
     # Use this week's scores to generate a message
     weekly_scoreboard_message = ("Here are this week's current standings:" + "\n\n")
     for (player_id, weekly_score) in zip(contents, contents[2:]):
-        weekly_scoreboard_message += "\t\t" + player_id + " - " + weekly_score + "\n"
+        if(weekly_score > 0):
+            weekly_scoreboard_message += "\t\t" + player_id + " - " + weekly_score + "\n"
     channel = bot.get_channel(target_channel_id)
     await channel.send(weekly_scoreboard_message)
 
