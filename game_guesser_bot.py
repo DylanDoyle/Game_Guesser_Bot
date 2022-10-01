@@ -147,10 +147,10 @@ async def on_message(message):
     user_nickname = message.author.display_name
     guessthegame = '#guessthegame' # or could be a sentence or phrase (ie 'these words')
     red_square = '🟥'
-    scoreboard_command = "!weekly_scoreboard"
+    scoreboard_command = "weekly_scoreboard"
 
     if scoreboard_command in msg:
-        weekly_scoreboard(message.channel)
+        await weekly_scoreboard(message.channel)
     elif guessthegame in msg:
         # First check if the player is able to gain points
         score = 6
