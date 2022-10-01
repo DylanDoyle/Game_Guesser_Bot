@@ -150,7 +150,7 @@ async def on_message(message):
     scoreboard_command = "!weekly_scoreboard"
 
     if scoreboard_command in msg:
-        weekly_scoreboard()
+        weekly_scoreboard(message.channel)
     elif guessthegame in msg:
         # First check if the player is able to gain points
         score = 6
@@ -179,7 +179,7 @@ async def on_message(message):
             )
             await message.channel.send(new_user)
 
-async def weekly_scoreboard():
+async def weekly_scoreboard(channel):
     """Function to share the current weekly scores for all users"""
     contents = get_user_score_contents()
     
@@ -195,7 +195,6 @@ async def weekly_scoreboard():
         else:
             index += 1
     
-    channel = bot.get_channel(target_channel_id)
     await channel.send(weekly_scoreboard_message)
 
 @aiocron.crontab('0 23 * * 6')
